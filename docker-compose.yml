@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+  kamailio:
+    image: kamailio/kamailio-ci:5.5.2
+    hostname: kamailio
+    restart: always
+    volumes:
+      - ./etc/kamailio/kamailio.cfg:/etc/kamailio/kamailio.cfg
+      - ./etc/kamailio/kamctlrc:/etc/kamailio/kamctlrc
+    ports:
+      - "5060:5060/udp"
+      - "5060:5060/tcp"
+      - "7722:7722"
+#    command:
+#      - kamdbctl create
+    depends_on:
+      - mysql
+
+#  siremis:
+#    image: quintana/siremis:latest
+#    hostname: siremis
+#    restart: always
+#    ports:
+#      - "8080:80"
+#    depends_on:
+#      - kamailio
+#      - mysql
+
+  mysql:
+    image: mysql/mysql-server:5.7
+    hostname: mysql-kamailio
+    restart: always
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=kamailio
+
