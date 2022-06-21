@@ -9,6 +9,7 @@
 ## Steps
 1. `git clone https://github.com/LLLLimbo/kamailio-deploy`
 2. `cd kamailio-deploy`
-3. `docker-compose up`
-4. Call testing with pre-configured SIP users
+3. Update `DBURL` in `etc/kamailio/kamailio.cfg`(line 6) and `DBHOST` in `etc/kamailio/kamctlrc`(line 21) according to your own situation
+4. `docker-compose up`
+5. Call testing with pre-configured SIP users
 
