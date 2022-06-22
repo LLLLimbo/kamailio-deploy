@@ -15,15 +15,18 @@ services:
     depends_on:
       - mysql
 
-#  siremis:
-#    image: quintana/siremis:latest
-#    hostname: siremis
-#    restart: always
-#    ports:
-#      - "8080:80"
-#    depends_on:
-#      - kamailio
-#      - mysql
+  coturn:
+    image: coturn/coturn:latest
+    hostname: coturn
+    restart: always
+    ports:
+      - "3478:3478"
+      - "3478:3478/udp"
+      - "5349:5349"
+      - "5349:5349/udp"
+      - "49152-49200:49152-49200/udp"
+    depends_on:
+      - mysql
 
   mysql:
     image: mysql/mysql-server:5.7
